@@ -5,4 +5,4 @@ darkblue
 
 
 Run:
-This uses bash script so please run build.sh script.
+This branch uses bash script. Please run build.sh script to generate the webpage.

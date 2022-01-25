@@ -5,4 +5,4 @@ darkblue
 
 
 Run:
-This branch uses bash script. Please run build.sh script to generate the webpage.
+This branch uses Python script. Please run build.py script to generate the webpage.

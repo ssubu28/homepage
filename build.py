@@ -1,41 +1,112 @@
-def main(pages):
+def page_builder(file_content):
+    template = open('./templates/base.html').read()
+    # rename result here with appropriate variable name
+    result = template.replace('{{content}}', file_content)
+
+    return result
+
+
+def page_identifier(page_title, page_filename, page_output):
+
+    if page_title == 'Tech Projects':
+        index_file_read = open(page_filename).read()
+        index = page_builder(index_file_read)
+        # index =  base_template.replace('{{content}}', index_file_read)
+        open(page_output, 'w+').write(index)
+
+    elif page_title == 'About':
+        about_file_read = open(page_filename).read()
+        # about = base_template.replace('{{content}}', about_file_read)
+        about = page_builder(about_file_read)
+        open(page_output, 'w+').write(about)
+
+    elif page_title == 'Photography':
+        blog_file_read = open(page_filename).read()
+        #blog = base_template.replace('{{content}}', blog_file_read)
+        blog = page_builder(blog_file_read)
+        open(page_output, 'w+').write(blog)
+
+    elif page_title == 'Resume':
+        resume_file_read = open(page_filename).read()
+        # resume = base_template.replace('{{content}}', resume_file_read)
+        resume = page_builder(resume_file_read)
+        open(page_output, 'w+').write(resume)
+
+    else:
+        print('ERROR! - Invalid Page.')
+
+
+
+def main():
     # Python script to generate a static page
+
+    pages = [
+        {
+            'title': 'Tech Projects',
+            'filename': './content/index.html',
+            'output': './docs/index.html'
+        },
+        {
+            'title': 'About',
+            'filename': './content/about.html',
+            'output': './docs/about.html'
+        },
+        {
+            'title': 'Photography',
+            'filename': './content/blog.html',
+            'output': './docs/blog.html'
+        },
+        {
+            'title': 'Resume',
+            'filename': './content/resume.html',
+            'output': './docs/resume.html'
+        }
+    ]
 
     # Templates
     # top = open('./templates/top.html').read()
     # bottom = open('./templates/bottom.html').read()
 
-    base_template = open('./templates/base.html').read()
+    # Part of new template builder function
+    # base_template = open('./templates/base.html').read()
 
 
     for page in pages:
+        page_title = page['title']
         page_filename = page['filename']
         page_output = page['output']
+        page_identifier(page_title, page_filename, page_output)
 
     # *** WILL need IF-ELSE HERE! CHECK TITLE and then proceed with other code.  *** 
 
+        """ 
         if page['title'] == 'Tech Projects':
             index_file_read = open(page_filename).read()
-            index =  base_template.replace('{{content}}', index_file_read)
+            index = page_builder(index_file_read)
+            # index =  base_template.replace('{{content}}', index_file_read)
             open(page_output, 'w+').write(index)
 
         elif page['title'] == 'About':
             about_file_read = open(page_filename).read()
-            about = base_template.replace('{{content}}', about_file_read)
+            # about = base_template.replace('{{content}}', about_file_read)
+            about = page_builder(about_file_read)
             open(page_output, 'w+').write(about)
 
         elif page['title'] == 'Photography':
             blog_file_read = open(page_filename).read()
-            blog = base_template.replace('{{content}}', blog_file_read)
+            #blog = base_template.replace('{{content}}', blog_file_read)
+            blog = page_builder(blog_file_read)
             open(page_output, 'w+').write(blog)
 
         elif page['title'] == 'Resume':
             resume_file_read = open(page_filename).read()
-            resume = base_template.replace('{{content}}', resume_file_read)
+            # resume = base_template.replace('{{content}}', resume_file_read)
+            resume = page_builder(resume_file_read)
             open(page_output, 'w+').write(resume)
 
         else:
-            print('ERROR! - Invalid Page.')
+            print('ERROR! - Invalid Page.') 
+        """
 
     
 
@@ -61,7 +132,8 @@ def main(pages):
 
 
 
-
+# move into main ?
+""" 
 pages = [
     {
         'title': 'Tech Projects',
@@ -83,7 +155,8 @@ pages = [
         'filename': './content/resume.html',
         'output': '/docs/resume.html'
     }
-]
+] 
+"""
 
 
-main(pages)
+main()

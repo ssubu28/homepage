@@ -19,20 +19,20 @@ def main(pages):
             index =  base_template.replace('{{content}}', index_file_read)
             open(page_output, 'w+').write(index)
 
-        # elif page['title'] == 'About':
-        #     about_file_read = open(page_filename).read()
-        #     about = top + about_file_read + bottom
-        #     open(page_output, 'w+').write(about)
+        elif page['title'] == 'About':
+            about_file_read = open(page_filename).read()
+            about = base_template.replace('{{content}}', about_file_read)
+            open(page_output, 'w+').write(about)
 
-        # elif page['title'] == 'Photography':
-        #     blog_file_read = open(page_filename).read()
-        #     blog = top + blog_file_read + bottom
-        #     open(page_output, 'w+').write(blog)
+        elif page['title'] == 'Photography':
+            blog_file_read = open(page_filename).read()
+            blog = base_template.replace('{{content}}', blog_file_read)
+            open(page_output, 'w+').write(blog)
 
-        # elif page['title'] == 'Resume':
-        #     resume_file_read = open(page_filename).read()
-        #     resume = top + resume_file_read + bottom
-        #     open(page_output, 'w+').write(resume)
+        elif page['title'] == 'Resume':
+            resume_file_read = open(page_filename).read()
+            resume = base_template.replace('{{content}}', resume_file_read)
+            open(page_output, 'w+').write(resume)
 
         else:
             print('ERROR! - Invalid Page.')

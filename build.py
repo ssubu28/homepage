@@ -1,9 +1,32 @@
 # Function to build a single page.
 def page_builder(file_content, page_title):
     template = open('./templates/base.html').read()
-    content_page = template.replace('{{content}}', file_content)
-    full_page = content_page.replace('{{title}}', page_title)
-    return full_page
+    # Title tag replacement
+    nav_page = template.replace('{{title}}', page_title)
+    # Content replacement
+    content_page = nav_page.replace('{{content}}', file_content)
+    
+    
+    """ 
+    if page_title == 'Tech Projects':
+        full_page = nav_page.replace('{{Active Tech Blog}}', 'active')
+    elif page_title == 'About':
+        full_page = nav_page.replace('{{Active About}}', 'active')
+    elif page_title == 'Photography':
+        full_page = nav_page.replace('{{Active Blog}}', 'active')
+    elif page_title == 'Resume':
+        full_page = nav_page.replace('{{Active Resume}}', 'active')
+    else:
+        full_page = nav_page  
+    """
+    
+    return content_page      # should be full_page if using above if-else block
+
+
+
+def navlink_activator(replacement_text, base_page):
+    final_page=base_page.replace(replacement_text, 'active')
+    return final_page
 
 
 
@@ -14,23 +37,27 @@ def page_identifier(page_title, page_filename, page_output):
 
     if page_title == 'Tech Projects':
         index_file_read = open(page_filename).read()
-        index = page_builder(index_file_read, page_title)
-        open(page_output, 'w+').write(index)
+        index_base_page = page_builder(index_file_read, page_title)
+        index_final = navlink_activator('{{Active Tech Blog}}', index_base_page)
+        open(page_output, 'w+').write(index_final)
 
     elif page_title == 'About':
         about_file_read = open(page_filename).read()
-        about = page_builder(about_file_read, page_title)
-        open(page_output, 'w+').write(about)
+        about_base_page = page_builder(about_file_read, page_title)
+        about_final = navlink_activator('{{Active About}}', about_base_page)
+        open(page_output, 'w+').write(about_final)
 
     elif page_title == 'Photography':
         blog_file_read = open(page_filename).read()
-        blog = page_builder(blog_file_read, page_title)
-        open(page_output, 'w+').write(blog)
+        blog_base_page = page_builder(blog_file_read, page_title)
+        blog_final = navlink_activator('{{Active Blog}}', blog_base_page)
+        open(page_output, 'w+').write(blog_final)
 
     elif page_title == 'Resume':
         resume_file_read = open(page_filename).read()
-        resume = page_builder(resume_file_read, page_title)
-        open(page_output, 'w+').write(resume)
+        resume_base_page = page_builder(resume_file_read, page_title)
+        resume_final = navlink_activator('{{Active Resume}}', resume_base_page)
+        open(page_output, 'w+').write(resume_final)
 
     else:
         print('ERROR! - Invalid Page.')
@@ -70,4 +97,6 @@ def main():
         page_identifier(page_title, page_filename, page_output)
 
     
-main()
+
+if __name__ == "__main__":
+    main()

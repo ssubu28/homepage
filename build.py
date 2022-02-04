@@ -18,36 +18,12 @@ def navlink_activator(replacement_text, base_page):
 
 
 
-# Function to check which page to build
+# Function to check which page to build. Refactored.
 def page_identifier(page_title, page_filename, page_output, page_navigate):
-
-    if page_title == 'Tech Projects':
-        index_file_read = open(page_filename).read()
-        index_base_page = page_builder(index_file_read, page_title)
-        index_final = navlink_activator(page_navigate, index_base_page)
-        open(page_output, 'w+').write(index_final)
-
-    elif page_title == 'About':
-        about_file_read = open(page_filename).read()
-        about_base_page = page_builder(about_file_read, page_title)
-        about_final = navlink_activator(page_navigate, about_base_page)
-        open(page_output, 'w+').write(about_final)
-
-    elif page_title == 'Photography':
-        blog_file_read = open(page_filename).read()
-        blog_base_page = page_builder(blog_file_read, page_title)
-        blog_final = navlink_activator(page_navigate, blog_base_page)
-        open(page_output, 'w+').write(blog_final)
-
-    elif page_title == 'Resume':
-        resume_file_read = open(page_filename).read()
-        resume_base_page = page_builder(resume_file_read, page_title)
-        resume_final = navlink_activator(page_navigate, resume_base_page)
-        open(page_output, 'w+').write(resume_final)
-
-    else:
-        print('ERROR! - Invalid Page.')
-
+    file_read = open(page_filename).read()
+    base_page = page_builder(file_read, page_title)
+    write_page = navlink_activator(page_navigate, base_page)
+    open(page_output, 'w+').write(write_page)
 
 
 def main():

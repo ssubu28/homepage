@@ -2,31 +2,31 @@ import glob
 from os import path
 from jinja2 import Template
 
+#Generating new page. 
+def newpage_generator():
+    content = """<h1>New Content!</h1>\n<p>New content...</p>"""
+    new_file = open("./content/new_content_page.html", "w+")
+    new_file.write(content)
+
+
 # Function to check which page to build. Refactored.
-def page_identifier(pages, page_title, page_filename, page_output):  # Remove page_navigate
-
-    file_html = open(page_filename).read() # "content/index.html"
-    template = Template(open("./templates/base.html").read()) # Replace with  ->  ./templates/base.html 
+def page_identifier(pages, page_title, page_filename, page_output):  
+    file_html = open(page_filename).read() 
+    template = Template(open("./templates/base.html").read()) 
     results = template.render(
-        pages=pages,   # added pages list
+        pages=pages,                    # added pages list for templating
         title=page_title,
-        content=file_html,   # Navigation too* + try using dictionary
+        content=file_html,              #  Try using dictionary
     )
-    #print(results)
     open(page_output, 'w+').write(results)
-
 
 
 # Resume page showing up as first tab even though opened page is index.html
 
-# **** TEST by adding some dummy html files with new names. ****
-
 def list_generate():  
     pages = []
 
-    # ** For index will have to check and perform a replace or something.  - DONE using if statement
     # Photography title to be replaced by blog. 
-    # Navigation correction  - DONE
     
     all_html_files = glob.glob("content/*.html")
 
@@ -42,7 +42,6 @@ def list_generate():
             'title': str(name_only.capitalize()),
             'filename': file_path,
             'output': output_path,
-            #'navigate': '{{Active ' + str(name_only.title()) + '}}'
         })
 
     return pages

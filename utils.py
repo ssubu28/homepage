@@ -1,9 +1,6 @@
-# Python script to generate a static site
-
 import glob
 from os import path
 from jinja2 import Template
-
 
 # Function to check which page to build. Refactored.
 def page_identifier(pages, page_title, page_filename, page_output):  # Remove page_navigate
@@ -61,8 +58,3 @@ def main():
         page_filename = page['filename']
         page_output = page['output']
         page_identifier(pages, page_title, page_filename, page_output)
-
-    
-
-if __name__ == "__main__":
-    main()

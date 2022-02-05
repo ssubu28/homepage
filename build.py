@@ -20,7 +20,6 @@ def page_identifier(pages, page_title, page_filename, page_output):  # Remove pa
 
 
 
-
 # Resume page showing up as first tab even though opened page is index.html
 # **** TEST by adding some dummy html files with new names. ****
 

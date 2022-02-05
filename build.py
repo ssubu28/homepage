@@ -2,32 +2,29 @@
 
 import glob
 from os import path
-
-# Function to build a page - replace content and title
-def page_builder(file_content, page_title):
-    template = open('./templates/base.html').read()
-    # Titletag replacement
-    titletag_page = template.replace('{{title}}', page_title)
-    # Content replacement
-    content_page = titletag_page.replace('{{content}}', file_content)
-    return content_page     
-
-
-# Activating navigation links 
-def navlink_activator(replacement_text, base_page):
-    final_page=base_page.replace(replacement_text, 'active')
-    return final_page
+from jinja2 import Template
 
 
 # Function to check which page to build. Refactored.
-def page_identifier(page_title, page_filename, page_output, page_navigate):
-    file_read = open(page_filename).read()
-    base_page = page_builder(file_read, page_title)
-    write_page = navlink_activator(page_navigate, base_page)
-    open(page_output, 'w+').write(write_page)
+def page_identifier(pages, page_title, page_filename, page_output):  # Remove page_navigate
+
+    file_html = open(page_filename).read() # "content/index.html"
+    template = Template(open("./templates/base.html").read()) # Replace with  ->  ./templates/base.html 
+    results = template.render(
+        pages=pages,   # added pages list
+        title=page_title,
+        content=file_html,   # Navigation too* + try using dictionary
+    )
+    #print(results)
+    open(page_output, 'w+').write(results)
 
 
-def list_generate():
+
+
+# Resume page showing up as first tab even though opened page is index.html
+# **** TEST by adding some dummy html files with new names. ****
+
+def list_generate():  
     pages = []
 
     # ** For index will have to check and perform a replace or something.  - DONE using if statement
@@ -36,8 +33,7 @@ def list_generate():
     
     all_html_files = glob.glob("content/*.html")
 
-    for file in all_html_files:
-        file_path = file
+    for file_path in all_html_files:
         file_name = path.basename(file_path)
         name_only, file_extension = path.splitext(file_name)
         output_path = './docs/' + file_name
@@ -45,14 +41,11 @@ def list_generate():
         if name_only == 'index':
             name_only = 'Tech blog'
 
-        # elif name_only == 'blog':
-        #     name_only = 'Photography'
-
         pages.append({
             'title': str(name_only.capitalize()),
             'filename': file_path,
             'output': output_path,
-            'navigate': '{{Active ' + str(name_only.title()) + '}}'
+            #'navigate': '{{Active ' + str(name_only.title()) + '}}'
         })
 
     return pages
@@ -67,47 +60,9 @@ def main():
         page_title = page['title']
         page_filename = page['filename']
         page_output = page['output']
-        page_navigate = page['navigate']
-        page_identifier(page_title, page_filename, page_output, page_navigate)
+        page_identifier(pages, page_title, page_filename, page_output)
 
     
 
 if __name__ == "__main__":
     main()
-    
-
-
-
-
-
-""" 
-    pages_old = [
-        {
-            'title': 'Tech Projects',
-            'filename': './content/index.html',
-            'output': './docs/index.html',
-            'navigate': '{{Active Tech Blog}}'
-        },
-        {
-            'title': 'About',
-            'filename': './content/about.html',
-            'output': './docs/about.html',
-            'navigate': '{{Active About}}'
-        },
-        {
-            'title': 'Photography',
-            'filename': './content/blog.html',
-            'output': './docs/blog.html',
-            'navigate': '{{Active Blog}}'
-        },
-        {
-            'title': 'Resume',
-            'filename': './content/resume.html',
-            'output': './docs/resume.html',
-            'navigate': '{{Active Resume}}'
-        }
-    ]
-
-    print("\n\n")
-    for p_old in pages_old:
-        print(p_old) """

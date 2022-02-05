@@ -2,11 +2,11 @@ import glob
 from os import path
 from jinja2 import Template
 
+
 #Generating new page. 
 def newpage_generator():
-    content = """<h1>New Content!</h1>\n<p>New content...</p>"""
-    new_file = open("./content/new_content_page.html", "w+")
-    new_file.write(content)
+    new_content = """<h1>New Content!</h1>\n<p>New content...</p>"""
+    open("./content/new_content_page.html", "w+").write(new_content)
 
 
 # Function to check which page to build. Refactored.

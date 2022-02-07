@@ -17,5 +17,8 @@ if __name__ == "__main__":
         elif sys.argv[1] == "new":
             utils.newpage_generator()
         else:
-            print("Please provide a command after filename to run - build or new")
-            print("Incorrect Usage.")
+            print("\nPlease refer to the instructions below.")
+            print("Usage:")
+            print("\tRebuild site:    python manage.py build")
+            print("\tCreate new page: python manage.py new\n")
+            print("Provide a command after filename to run - build or new\n")

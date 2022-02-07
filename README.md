@@ -5,4 +5,5 @@ darkblue
 
 
 Run:
-This branch uses Python script. Please run build.py script to generate the webpage.
+This branch uses Python script with Jinja2. Please run manage.py to generate the webpage.
+
